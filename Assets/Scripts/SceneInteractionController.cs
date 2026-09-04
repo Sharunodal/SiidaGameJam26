@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
@@ -18,6 +19,8 @@ namespace SiidaGameJam.BerryPicking
         private InputAction interactAction;
         private InputAction advanceAction;
         private SceneInteractable activeInteraction;
+        private readonly List<RaycastResult> uiRaycastResults =
+            new List<RaycastResult>();
 
         private void Awake()
         {
@@ -57,12 +60,14 @@ namespace SiidaGameJam.BerryPicking
 
         private void OnInteractionStarted(InputAction.CallbackContext context)
         {
-            if (EventSystem.current != null && EventSystem.current.IsPointerOverGameObject())
+            Vector2 pointerScreenPosition = pointAction.ReadValue<Vector2>();
+
+            if (PointerIsOverUi(pointerScreenPosition))
             {
                 return;
             }
 
-            Vector2 pointerWorldPosition = ReadPointerWorldPosition();
+            Vector2 pointerWorldPosition = ConvertToWorldPosition(pointerScreenPosition);
             Collider2D topmostHit = FindTopmostHit(pointerWorldPosition);
 
             if (topmostHit == null)
@@ -100,9 +105,30 @@ namespace SiidaGameJam.BerryPicking
         private Vector2 ReadPointerWorldPosition()
         {
             Vector2 pointerScreenPosition = pointAction.ReadValue<Vector2>();
+            return ConvertToWorldPosition(pointerScreenPosition);
+        }
+
+        private Vector2 ConvertToWorldPosition(Vector2 pointerScreenPosition)
+        {
             float distanceFromCamera = -sceneCamera.transform.position.z;
             return sceneCamera.ScreenToWorldPoint(
                 new Vector3(pointerScreenPosition.x, pointerScreenPosition.y, distanceFromCamera));
+        }
+
+        private bool PointerIsOverUi(Vector2 pointerScreenPosition)
+        {
+            if (EventSystem.current == null)
+            {
+                return false;
+            }
+
+            PointerEventData pointerEventData = new PointerEventData(EventSystem.current);
+            pointerEventData.position = pointerScreenPosition;
+
+            uiRaycastResults.Clear();
+            EventSystem.current.RaycastAll(pointerEventData, uiRaycastResults);
+
+            return uiRaycastResults.Count > 0;
         }
 
         private Collider2D FindTopmostHit(Vector2 pointerWorldPosition)
