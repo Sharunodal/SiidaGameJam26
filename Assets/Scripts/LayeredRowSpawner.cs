@@ -22,7 +22,7 @@ namespace SiidaGameJam.BerryPicking
         [SerializeField] private float minimumX = -10f;
         [SerializeField] private float maximumX = 10f;
         [Min(0.01f)]
-        [SerializeField] private float minimumHorizontalSpacing = 4f;
+        [SerializeField] private float minimumHorizontalSpacing = 3f;
         [Min(0.01f)]
         [SerializeField] private float maximumHorizontalSpacing = 10f;
 
@@ -42,6 +42,18 @@ namespace SiidaGameJam.BerryPicking
         [SerializeField] private float minimumDistanceFromBirch = 3.5f;
         [SerializeField] private float birchForbiddenMinimumX = -4f;
         [SerializeField] private float birchForbiddenMaximumX = 4f;
+
+        [Header("Grass")]
+        [SerializeField] private GameObject[] grassPrefabs;
+        [Range(0f, 1f)]
+        [SerializeField] private float grassSpawnChance = 0.5f;
+        [Min(0.01f)]
+        [SerializeField] private float minimumGrassSpacing = 1f;
+
+        [Header("Sorting")]
+        [Min(2)]
+        [SerializeField] private int sortingOrderStepPerRow = 10;
+        [SerializeField] private int grassSortingOrderWithinRow = 1;
 
         private readonly List<List<GameObject>> spawnedRows =
             new List<List<GameObject>>();
@@ -67,12 +79,11 @@ namespace SiidaGameJam.BerryPicking
 
             for (int rowIndex = 0; rowIndex < spawnedRows.Count; rowIndex++)
             {
-                int newRowIndex = rowIndex + 1;
-
                 foreach (GameObject plant in spawnedRows[rowIndex])
                 {
                     plant.transform.position += Vector3.down * rowSpacing;
-                    plant.GetComponent<SortingGroup>().sortingOrder = newRowIndex;
+                    plant.GetComponent<SortingGroup>().sortingOrder +=
+                        sortingOrderStepPerRow;
                 }
             }
 
@@ -94,6 +105,7 @@ namespace SiidaGameJam.BerryPicking
 
             if (plantCount == 0)
             {
+                SpawnGrass(row, birchPositions, y, rowIndex);
                 return row;
             }
 
@@ -109,7 +121,7 @@ namespace SiidaGameJam.BerryPicking
                     break;
                 }
 
-                row.Add(SpawnPlant(
+                row.Add(SpawnBerryBush(
                     new Vector3(currentX, y, transform.position.z),
                     rowIndex));
 
@@ -137,15 +149,60 @@ namespace SiidaGameJam.BerryPicking
                 currentX += gap;
             }
 
+            SpawnGrass(row, birchPositions, y, rowIndex);
+
             return row;
         }
 
-        private GameObject SpawnPlant(Vector3 position, int rowIndex)
+        private GameObject SpawnBerryBush(Vector3 position, int rowIndex)
         {
             GameObject prefab = berryBushPrefabs[Random.Range(0, berryBushPrefabs.Length)];
             GameObject plant = Instantiate(prefab, position, Quaternion.identity, transform);
-            plant.GetComponent<SortingGroup>().sortingOrder = rowIndex;
+            plant.GetComponent<SortingGroup>().sortingOrder =
+                GetSortingOrder(rowIndex, 0);
             return plant;
+        }
+
+        private void SpawnGrass(
+            List<GameObject> row,
+            List<float> birchPositions,
+            float y,
+            int rowIndex)
+        {
+            List<float> grassPositions = new List<float>();
+            float x = minimumX;
+
+            while (x <= maximumX)
+            {
+                if (!PositionIsClearOfBirches(x, birchPositions))
+                {
+                    x += minimumGrassSpacing;
+                    continue;
+                }
+
+                if (!PositionIsClearOfGrass(x, grassPositions))
+                {
+                    x += minimumGrassSpacing;
+                    continue;
+                }
+
+                if (Random.value <= grassSpawnChance)
+                {
+                    GameObject prefab = grassPrefabs[Random.Range(0, grassPrefabs.Length)];
+                    GameObject grass = Instantiate(
+                        prefab,
+                        new Vector3(x, y, transform.position.z),
+                        Quaternion.identity,
+                        transform);
+
+                    grass.GetComponent<SortingGroup>().sortingOrder =
+                        GetSortingOrder(rowIndex, grassSortingOrderWithinRow);
+                    row.Add(grass);
+                    grassPositions.Add(x);
+                }
+
+                x += minimumGrassSpacing;
+            }
         }
 
         private void SpawnBirches(
@@ -196,7 +253,8 @@ namespace SiidaGameJam.BerryPicking
                     Quaternion.identity,
                     transform);
 
-                birch.GetComponent<SortingGroup>().sortingOrder = rowIndex;
+                birch.GetComponent<SortingGroup>().sortingOrder =
+                    GetSortingOrder(rowIndex, 0);
                 row.Add(birch);
                 birchPositions.Add(x);
                 return;
@@ -218,6 +276,28 @@ namespace SiidaGameJam.BerryPicking
             }
 
             return true;
+        }
+
+        private bool PositionIsClearOfGrass(
+            float x,
+            List<float> grassPositions)
+        {
+            foreach (float grassPosition in grassPositions)
+            {
+                float distance = Mathf.Abs(x - grassPosition);
+
+                if (distance < minimumGrassSpacing)
+                {
+                    return false;
+                }
+            }
+
+            return true;
+        }
+
+        private int GetSortingOrder(int rowIndex, int orderWithinRow)
+        {
+            return rowIndex * sortingOrderStepPerRow + orderWithinRow;
         }
 
         private float MovePastBirches(float x, List<float> birchPositions)

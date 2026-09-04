@@ -3542,7 +3542,7 @@ MonoBehaviour:
   rowSpacing: 1
   minimumX: -10
   maximumX: 10
-  minimumHorizontalSpacing: 6
+  minimumHorizontalSpacing: 4
   maximumHorizontalSpacing: 10
   minimumPlantsPerRow: 0
   maximumPlantsPerRow: 10
@@ -3553,6 +3553,12 @@ MonoBehaviour:
   minimumDistanceFromBirch: 3.5
   birchForbiddenMinimumX: -4.5
   birchForbiddenMaximumX: 4.5
+  grassPrefabs:
+  - {fileID: 8829893807554101684, guid: 41e0c7b9676494f4a874a35dc03cfab2, type: 3}
+  grassSpawnChance: 0.25
+  minimumGrassSpacing: 1
+  sortingOrderStepPerRow: 10
+  grassSortingOrderWithinRow: 1
 --- !u!4 &1592179175
 Transform:
   m_ObjectHideFlags: 0
