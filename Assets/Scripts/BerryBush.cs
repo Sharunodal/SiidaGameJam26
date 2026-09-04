@@ -22,7 +22,9 @@ namespace SiidaGameJam.BerryPicking
             for (int index = 0; index < activeBerryCount; index++)
             {
                 int selectedIndex = Random.Range(index, berries.Length);
-                (berries[index], berries[selectedIndex]) = (berries[selectedIndex], berries[index]);
+                GameObject selectedBerry = berries[selectedIndex];
+                berries[selectedIndex] = berries[index];
+                berries[index] = selectedBerry;
                 berries[index].SetActive(true);
             }
         }

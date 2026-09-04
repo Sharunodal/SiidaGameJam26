@@ -7,9 +7,21 @@ namespace SiidaGameJam.BerryPicking
         [SerializeField] private SpriteRenderer visual;
         [SerializeField] private int interactionPriority;
 
-        public int SortingLayerValue => SortingLayer.GetLayerValueFromID(visual.sortingLayerID);
-        public int SortingOrder => visual.sortingOrder;
-        public int InteractionPriority => interactionPriority;
+        public SpriteRenderer Visual
+        {
+            get
+            {
+                return visual;
+            }
+        }
+
+        public int InteractionPriority
+        {
+            get
+            {
+                return interactionPriority;
+            }
+        }
 
         public abstract bool BeginInteraction(Vector2 pointerWorldPosition);
 

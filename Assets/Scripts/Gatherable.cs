@@ -14,7 +14,11 @@ namespace SiidaGameJam.BerryPicking
 
         public override bool BeginInteraction(Vector2 pointerWorldPosition)
         {
-            AnyGathered?.Invoke(amount);
+            if (AnyGathered != null)
+            {
+                AnyGathered.Invoke(amount);
+            }
+
             gathered.Invoke(amount);
             gameObject.SetActive(false);
             return false;

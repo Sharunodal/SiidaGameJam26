@@ -686,11 +686,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 144406585}
   m_CullTransparentMesh: 1
---- !u!4 &151692231 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 1573501027015541396, guid: 022e68c9af849b14da751f9a62625fcc, type: 3}
-  m_PrefabInstance: {fileID: 1312967881}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &164065431
 GameObject:
   m_ObjectHideFlags: 0
@@ -1711,8 +1706,8 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: 1554834425
+  m_SortingLayer: 3
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
@@ -2427,11 +2422,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1128045218}
   m_CullTransparentMesh: 1
---- !u!4 &1159996031 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 1573501027015541396, guid: 022e68c9af849b14da751f9a62625fcc, type: 3}
-  m_PrefabInstance: {fileID: 5514913717278478422}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1217813815
 GameObject:
   m_ObjectHideFlags: 0
@@ -2839,63 +2829,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1290449838}
   m_CullTransparentMesh: 1
---- !u!1001 &1312967881
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 1680736573}
-    m_Modifications:
-    - target: {fileID: 1573501027015541396, guid: 022e68c9af849b14da751f9a62625fcc, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 5.94
-      objectReference: {fileID: 0}
-    - target: {fileID: 1573501027015541396, guid: 022e68c9af849b14da751f9a62625fcc, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: -1.66
-      objectReference: {fileID: 0}
-    - target: {fileID: 1573501027015541396, guid: 022e68c9af849b14da751f9a62625fcc, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1573501027015541396, guid: 022e68c9af849b14da751f9a62625fcc, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1573501027015541396, guid: 022e68c9af849b14da751f9a62625fcc, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1573501027015541396, guid: 022e68c9af849b14da751f9a62625fcc, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1573501027015541396, guid: 022e68c9af849b14da751f9a62625fcc, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1573501027015541396, guid: 022e68c9af849b14da751f9a62625fcc, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1573501027015541396, guid: 022e68c9af849b14da751f9a62625fcc, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 180
-      objectReference: {fileID: 0}
-    - target: {fileID: 1573501027015541396, guid: 022e68c9af849b14da751f9a62625fcc, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7343176992462960476, guid: 022e68c9af849b14da751f9a62625fcc, type: 3}
-      propertyPath: m_Name
-      value: BlueberryPlant
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 022e68c9af849b14da751f9a62625fcc, type: 3}
 --- !u!1 &1388420775
 GameObject:
   m_ObjectHideFlags: 0
@@ -3746,6 +3679,62 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1576737845}
   m_CullTransparentMesh: 1
+--- !u!1 &1592179173
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1592179175}
+  - component: {fileID: 1592179174}
+  m_Layer: 0
+  m_Name: PlantSpawner
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1592179174
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1592179173}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8be9f0b23bd54d54d9eb806aec645d76, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SiidaGameJam.BerryPicking.LayeredRowSpawner
+  plantPrefabs:
+  - {fileID: 8870691392508474757, guid: 022e68c9af849b14da751f9a62625fcc, type: 3}
+  - {fileID: 8870691392508474757, guid: 187737f37fc02b24ea4601b79e79549c, type: 3}
+  firstRowY: 0.5
+  rowCount: 10
+  rowSpacing: 1
+  minimumX: -10
+  maximumX: 10
+  minimumHorizontalSpacing: 4
+  maximumHorizontalSpacing: 10
+  minimumPlantsPerRow: 0
+  maximumPlantsPerRow: 10
+--- !u!4 &1592179175
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1592179173}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.1445, y: -1.38008, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1628131953
 GameObject:
   m_ObjectHideFlags: 0
@@ -4147,9 +4136,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SiidaGameJam.BerryPicking.SceneInteractionController
   sceneCamera: {fileID: 1941448243}
-  interactableLayers:
+  blockingLayers:
     serializedVersion: 2
     m_Bits: 128
+  rowSpawners:
+  - {fileID: 1592179174}
 --- !u!4 &1661422968
 Transform:
   m_ObjectHideFlags: 0
@@ -4163,39 +4154,6 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1680736572
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1680736573}
-  m_Layer: 0
-  m_Name: Blueberry Plants
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1680736573
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1680736572}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 1159996031}
-  - {fileID: 151692231}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1682193233
@@ -5549,63 +5507,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2138149212}
   m_CullTransparentMesh: 1
---- !u!1001 &5514913717278478422
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 1680736573}
-    m_Modifications:
-    - target: {fileID: 1573501027015541396, guid: 022e68c9af849b14da751f9a62625fcc, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -5.32
-      objectReference: {fileID: 0}
-    - target: {fileID: 1573501027015541396, guid: 022e68c9af849b14da751f9a62625fcc, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: -2.48
-      objectReference: {fileID: 0}
-    - target: {fileID: 1573501027015541396, guid: 022e68c9af849b14da751f9a62625fcc, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1573501027015541396, guid: 022e68c9af849b14da751f9a62625fcc, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1573501027015541396, guid: 022e68c9af849b14da751f9a62625fcc, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1573501027015541396, guid: 022e68c9af849b14da751f9a62625fcc, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1573501027015541396, guid: 022e68c9af849b14da751f9a62625fcc, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1573501027015541396, guid: 022e68c9af849b14da751f9a62625fcc, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1573501027015541396, guid: 022e68c9af849b14da751f9a62625fcc, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1573501027015541396, guid: 022e68c9af849b14da751f9a62625fcc, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7343176992462960476, guid: 022e68c9af849b14da751f9a62625fcc, type: 3}
-      propertyPath: m_Name
-      value: BlueberryPlant
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 022e68c9af849b14da751f9a62625fcc, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
@@ -5617,4 +5518,4 @@ SceneRoots:
   - {fileID: 1648612539}
   - {fileID: 1661422968}
   - {fileID: 788532081}
-  - {fileID: 1680736573}
+  - {fileID: 1592179175}
