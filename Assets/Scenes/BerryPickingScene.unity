@@ -3534,18 +3534,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8be9f0b23bd54d54d9eb806aec645d76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SiidaGameJam.BerryPicking.LayeredRowSpawner
-  plantPrefabs:
-  - {fileID: 8870691392508474757, guid: 022e68c9af849b14da751f9a62625fcc, type: 3}
-  - {fileID: 8870691392508474757, guid: 187737f37fc02b24ea4601b79e79549c, type: 3}
-  firstRowY: 0.5
-  rowCount: 10
+  berryBushPrefabs:
+  - {fileID: 7749168320649510424, guid: 022e68c9af849b14da751f9a62625fcc, type: 3}
+  - {fileID: 7815033637644988478, guid: 187737f37fc02b24ea4601b79e79549c, type: 3}
+  firstRowY: 0
+  rowCount: 8
   rowSpacing: 1
   minimumX: -10
   maximumX: 10
-  minimumHorizontalSpacing: 4
+  minimumHorizontalSpacing: 6
   maximumHorizontalSpacing: 10
   minimumPlantsPerRow: 0
   maximumPlantsPerRow: 10
+  birchPrefabs:
+  - {fileID: 2111443034967029518, guid: 21f156ca16b6ed44696c283b6d6abcbf, type: 3}
+  birchSpawnChance: 0.5
+  maximumBirchesPerRow: 1
+  minimumDistanceFromBirch: 3.5
+  birchForbiddenMinimumX: -4.5
+  birchForbiddenMaximumX: 4.5
 --- !u!4 &1592179175
 Transform:
   m_ObjectHideFlags: 0
