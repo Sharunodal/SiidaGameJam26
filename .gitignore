@@ -36,6 +36,15 @@
 
 # Visual Studio cache directory
 .vs/
+.vsconfig
+
+# JetBrains Rider / IntelliJ project settings
+.idea/
+
+# OS-generated metadata
+.DS_Store
+Thumbs.db
+Desktop.ini
 
 # Gradle cache directory
 .gradle/
