@@ -11,6 +11,13 @@ namespace SiidaGameJam.BerryPicking
         [FormerlySerializedAs("plantPrefabs")]
         [SerializeField] private GameObject[] berryBushPrefabs;
 
+        [Header("Azaleas")]
+        [SerializeField] private GameObject[] azaleaBushPrefabs;
+        [Range(0f, 1f)]
+        [SerializeField] private float azaleaSpawnChance = 0.05f;
+        [Min(0.01f)]
+        [SerializeField] private float minimumAzaleaSpacing = 2f;
+
         [Header("Rows")]
         [SerializeField] private float firstRowY = 1f;
         [Min(1)]
@@ -106,6 +113,7 @@ namespace SiidaGameJam.BerryPicking
         {
             List<GameObject> row = new List<GameObject>();
             List<float> birchPositions = new List<float>();
+            List<float> berryBushPositions = new List<float>();
             float y = firstRowY - rowIndex * rowSpacing;
 
             SpawnBirches(row, birchPositions, y, rowIndex);
@@ -117,6 +125,12 @@ namespace SiidaGameJam.BerryPicking
 
             if (plantCount == 0)
             {
+                SpawnAzaleas(
+                    row,
+                    birchPositions,
+                    berryBushPositions,
+                    y,
+                    rowIndex);
                 SpawnGrass(row, birchPositions, y, rowIndex);
                 return row;
             }
@@ -136,6 +150,7 @@ namespace SiidaGameJam.BerryPicking
                 row.Add(SpawnBerryBush(
                     new Vector3(currentX, y, transform.position.z),
                     rowIndex));
+                berryBushPositions.Add(currentX);
 
                 int gapsRemaining = plantCount - plantIndex - 1;
 
@@ -161,9 +176,65 @@ namespace SiidaGameJam.BerryPicking
                 currentX += gap;
             }
 
+            SpawnAzaleas(
+                row,
+                birchPositions,
+                berryBushPositions,
+                y,
+                rowIndex);
             SpawnGrass(row, birchPositions, y, rowIndex);
 
             return row;
+        }
+
+        private void SpawnAzaleas(
+            List<GameObject> row,
+            List<float> birchPositions,
+            List<float> berryBushPositions,
+            float y,
+            int rowIndex)
+        {
+            List<float> azaleaPositions = new List<float>();
+            float x = minimumX;
+
+            while (x <= maximumX)
+            {
+                if (!PositionIsClearOfBirches(x, birchPositions))
+                {
+                    x += minimumAzaleaSpacing;
+                    continue;
+                }
+
+                if (!PositionIsClearOfBerryBushes(x, berryBushPositions))
+                {
+                    x += minimumAzaleaSpacing;
+                    continue;
+                }
+
+                if (!PositionIsClearOfAzaleas(x, azaleaPositions))
+                {
+                    x += minimumAzaleaSpacing;
+                    continue;
+                }
+
+                if (Random.value <= azaleaSpawnChance)
+                {
+                    GameObject prefab =
+                        azaleaBushPrefabs[Random.Range(0, azaleaBushPrefabs.Length)];
+                    GameObject azalea = Instantiate(
+                        prefab,
+                        new Vector3(x, y, transform.position.z),
+                        Quaternion.identity,
+                        transform);
+
+                    azalea.GetComponent<SortingGroup>().sortingOrder =
+                        GetSortingOrder(rowIndex, 0);
+                    row.Add(azalea);
+                    azaleaPositions.Add(x);
+                }
+
+                x += minimumAzaleaSpacing;
+            }
         }
 
         private GameObject SpawnBerryBush(Vector3 position, int rowIndex)
@@ -328,6 +399,40 @@ namespace SiidaGameJam.BerryPicking
                 float distance = Mathf.Abs(x - grassPosition);
 
                 if (distance < minimumGrassSpacing)
+                {
+                    return false;
+                }
+            }
+
+            return true;
+        }
+
+        private bool PositionIsClearOfBerryBushes(
+            float x,
+            List<float> berryBushPositions)
+        {
+            foreach (float berryBushPosition in berryBushPositions)
+            {
+                float distance = Mathf.Abs(x - berryBushPosition);
+
+                if (distance < minimumHorizontalSpacing)
+                {
+                    return false;
+                }
+            }
+
+            return true;
+        }
+
+        private bool PositionIsClearOfAzaleas(
+            float x,
+            List<float> azaleaPositions)
+        {
+            foreach (float azaleaPosition in azaleaPositions)
+            {
+                float distance = Mathf.Abs(x - azaleaPosition);
+
+                if (distance < minimumAzaleaSpacing)
                 {
                     return false;
                 }

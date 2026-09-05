@@ -144,6 +144,7 @@ MonoBehaviour:
   - {fileID: 1215206568680825453}
   - {fileID: 3285570817305812003}
   - {fileID: 8914159955319610408}
+  - {fileID: 305727337740669582}
   minimumBerryCount: 0
   maximumBerryCount: 13
   rustlingBush: {fileID: 5063896751068896048}
@@ -2499,6 +2500,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f1bfbf87c77f4334d8b8a5e915358b59, type: 3}
+--- !u!1 &305727337740669582 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4145149946610867159, guid: f1bfbf87c77f4334d8b8a5e915358b59, type: 3}
+  m_PrefabInstance: {fileID: 4447496560297691481}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &4413058459347348892 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 37994480510346437, guid: f1bfbf87c77f4334d8b8a5e915358b59, type: 3}

@@ -34,6 +34,8 @@ public sealed class GameManager : MonoBehaviour
         "You were chased away by an angry lemming!";
     [SerializeField] private BerryCounter berryCounter;
     [SerializeField] private TMP_Text stageClearBerriesValueText;
+    [SerializeField] private AzaleaFlowerCounter azaleaFlowerCounter;
+    [SerializeField] private TMP_Text stageClearFlowersValueText;
 
     private InputAction escapeAction;
     private IDisposable anyButtonPressSubscription;
@@ -193,6 +195,7 @@ public sealed class GameManager : MonoBehaviour
         ingameUi.SetActive(false);
         stageClearInfoText.text = normalStageClearMessage;
         UpdateStageClearBerriesDisplay();
+        UpdateStageClearFlowersDisplay();
         stageClearScreen.SetActive(true);
     }
 
@@ -214,6 +217,7 @@ public sealed class GameManager : MonoBehaviour
         ingameUi.SetActive(false);
         stageClearInfoText.text = lemmingGameOverMessage;
         stageClearBerriesValueText.text = "";
+        stageClearFlowersValueText.text = "";
         stageClearScreen.SetActive(true);
     }
 
@@ -239,6 +243,20 @@ public sealed class GameManager : MonoBehaviour
         else
         {
             stageClearBerriesValueText.text = berriesPicked.ToString() + " berries";
+        }
+    }
+
+    private void UpdateStageClearFlowersDisplay()
+    {
+        int flowersPicked = azaleaFlowerCounter.AzaleaFlowersPicked;
+
+        if (flowersPicked == 1)
+        {
+            stageClearFlowersValueText.text = flowersPicked.ToString() + " flower";
+        }
+        else
+        {
+            stageClearFlowersValueText.text = flowersPicked.ToString() + " flowers";
         }
     }
 

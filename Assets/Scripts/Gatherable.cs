@@ -5,28 +5,56 @@ using UnityEngine.Rendering;
 
 namespace SiidaGameJam.BerryPicking
 {
+    public enum GatherableResource
+    {
+        Berry,
+        AzaleaFlower
+    }
+
     public sealed class Gatherable : SceneInteractable
     {
-        public static event Action<int> AnyGathered;
+        public static event Action<int> BerryGathered;
+        public static event Action<int> AzaleaFlowerGathered;
 
+        [SerializeField] private GatherableResource resource;
         [Min(1)]
         [SerializeField] private int amount = 1;
         [SerializeField] private UnityEvent<int> gathered;
 
         public override bool BeginInteraction(Vector2 pointerWorldPosition)
         {
-            SortingGroup bushSortingGroup = GetComponentInParent<SortingGroup>();
-            BerryBush berryBush = bushSortingGroup.GetComponentInChildren<BerryBush>();
-
-            if (AnyGathered != null)
+            if (resource == GatherableResource.Berry)
             {
-                AnyGathered.Invoke(amount);
+                GatherBerry();
+            }
+            else
+            {
+                GatherAzaleaFlower();
             }
 
             gathered.Invoke(amount);
             gameObject.SetActive(false);
-            berryBush.BerryWasGathered();
             return false;
+        }
+
+        private void GatherBerry()
+        {
+            if (BerryGathered != null)
+            {
+                BerryGathered.Invoke(amount);
+            }
+
+            SortingGroup bushSortingGroup = GetComponentInParent<SortingGroup>();
+            BerryBush berryBush = bushSortingGroup.GetComponentInChildren<BerryBush>();
+            berryBush.BerryWasGathered();
+        }
+
+        private void GatherAzaleaFlower()
+        {
+            if (AzaleaFlowerGathered != null)
+            {
+                AzaleaFlowerGathered.Invoke(amount);
+            }
         }
     }
 }

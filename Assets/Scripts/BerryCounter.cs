@@ -17,12 +17,12 @@ namespace SiidaGameJam.BerryPicking
 
         private void OnEnable()
         {
-            Gatherable.AnyGathered += AddBerries;
+            Gatherable.BerryGathered += AddBerries;
         }
 
         private void OnDisable()
         {
-            Gatherable.AnyGathered -= AddBerries;
+            Gatherable.BerryGathered -= AddBerries;
         }
 
         private void AddBerries(int amount)
