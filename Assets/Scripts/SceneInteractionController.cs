@@ -134,6 +134,18 @@ namespace SiidaGameJam.BerryPicking
         private Collider2D FindTopmostHit(Vector2 pointerWorldPosition)
         {
             Collider2D[] hits = Physics2D.OverlapPointAll(pointerWorldPosition, blockingLayers);
+
+            foreach (Collider2D hit in hits)
+            {
+                LemmingEncounter lemmingEncounter =
+                    hit.GetComponent<LemmingEncounter>();
+
+                if (lemmingEncounter != null)
+                {
+                    return hit;
+                }
+            }
+
             Collider2D topmostHit = null;
             SpriteRenderer topmostVisual = null;
             int topmostInteractionPriority = 0;

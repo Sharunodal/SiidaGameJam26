@@ -1,4 +1,5 @@
 using System;
+using SiidaGameJam.BerryPicking;
 using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -21,15 +22,26 @@ public sealed class GameManager : MonoBehaviour
     [Min(1f)]
     [SerializeField] private float timeLimitInSeconds = 60f;
     [SerializeField] private TMP_Text timeValueText;
+    [SerializeField] private GameObject ingameUi;
     [SerializeField] private GameObject startScreen;
     [SerializeField] private GameObject stageClearScreen;
+    [SerializeField] private TMP_Text stageClearInfoText;
+    [TextArea]
+    [SerializeField] private string normalStageClearMessage =
+        "Game Clear\n\nCollected";
+    [TextArea]
+    [SerializeField] private string lemmingGameOverMessage =
+        "You were chased away by an angry lemming!";
+    [SerializeField] private BerryCounter berryCounter;
+    [SerializeField] private TMP_Text stageClearBerriesValueText;
 
     private InputAction escapeAction;
     private IDisposable anyButtonPressSubscription;
     private bool gameIsPaused;
     private bool waitingForStart;
     private bool startWasRequested;
-    private bool timeHasExpired;
+    private bool gameplayHasEnded;
+    private bool lemmingEncounterIsPlaying;
     private float timeRemaining;
     private int displayedSeconds = -1;
 
@@ -42,6 +54,8 @@ public sealed class GameManager : MonoBehaviour
     {
         escapeAction.Enable();
         escapeAction.performed += OnEscapePerformed;
+        LemmingEncounter.EncounterStarted += BeginLemmingEncounter;
+        LemmingEncounter.GameOverRequested += FinishGameFromLemming;
     }
 
     private void Start()
@@ -60,6 +74,7 @@ public sealed class GameManager : MonoBehaviour
             timeRemaining = timeLimitInSeconds;
             UpdateTimerDisplay();
 
+            ingameUi.SetActive(true);
             startScreen.SetActive(true);
             stageClearScreen.SetActive(false);
             waitingForStart = true;
@@ -83,7 +98,10 @@ public sealed class GameManager : MonoBehaviour
             StartTimedGameplay();
         }
 
-        if (waitingForStart || gameIsPaused || timeHasExpired)
+        if (waitingForStart ||
+            gameIsPaused ||
+            gameplayHasEnded ||
+            lemmingEncounterIsPlaying)
         {
             return;
         }
@@ -105,6 +123,8 @@ public sealed class GameManager : MonoBehaviour
     {
         escapeAction.performed -= OnEscapePerformed;
         escapeAction.Disable();
+        LemmingEncounter.EncounterStarted -= BeginLemmingEncounter;
+        LemmingEncounter.GameOverRequested -= FinishGameFromLemming;
 
         if (anyButtonPressSubscription != null)
         {
@@ -115,7 +135,10 @@ public sealed class GameManager : MonoBehaviour
 
     private void OnEscapePerformed(InputAction.CallbackContext context)
     {
-        if (!pausingIsEnabled || waitingForStart || timeHasExpired)
+        if (!pausingIsEnabled ||
+            waitingForStart ||
+            gameplayHasEnded ||
+            lemmingEncounterIsPlaying)
         {
             return;
         }
@@ -163,11 +186,60 @@ public sealed class GameManager : MonoBehaviour
 
     private void FinishTimedGameplay()
     {
-        timeHasExpired = true;
+        gameplayHasEnded = true;
         Time.timeScale = 0f;
         SetGameplayBehavioursEnabled(false);
         pauseScreen.SetActive(false);
+        ingameUi.SetActive(false);
+        stageClearInfoText.text = normalStageClearMessage;
+        UpdateStageClearBerriesDisplay();
         stageClearScreen.SetActive(true);
+    }
+
+    private void FinishGameFromLemming()
+    {
+        if (!timedGameplayIsEnabled ||
+            waitingForStart ||
+            gameplayHasEnded ||
+            !lemmingEncounterIsPlaying)
+        {
+            return;
+        }
+
+        lemmingEncounterIsPlaying = false;
+        gameplayHasEnded = true;
+        Time.timeScale = 0f;
+        SetGameplayBehavioursEnabled(false);
+        pauseScreen.SetActive(false);
+        ingameUi.SetActive(false);
+        stageClearInfoText.text = lemmingGameOverMessage;
+        stageClearBerriesValueText.text = "";
+        stageClearScreen.SetActive(true);
+    }
+
+    private void BeginLemmingEncounter()
+    {
+        if (!timedGameplayIsEnabled || waitingForStart || gameplayHasEnded)
+        {
+            return;
+        }
+
+        lemmingEncounterIsPlaying = true;
+        SetGameplayBehavioursEnabled(false);
+    }
+
+    private void UpdateStageClearBerriesDisplay()
+    {
+        int berriesPicked = berryCounter.BerriesPicked;
+
+        if (berriesPicked == 1)
+        {
+            stageClearBerriesValueText.text = berriesPicked.ToString() + " berry";
+        }
+        else
+        {
+            stageClearBerriesValueText.text = berriesPicked.ToString() + " berries";
+        }
     }
 
     private void UpdateTimerDisplay()
@@ -201,7 +273,8 @@ public sealed class GameManager : MonoBehaviour
         gameIsPaused = false;
         waitingForStart = false;
         startWasRequested = false;
-        timeHasExpired = false;
+        gameplayHasEnded = false;
+        lemmingEncounterIsPlaying = false;
     }
 
     private void SetGameplayBehavioursEnabled(bool behavioursAreEnabled)

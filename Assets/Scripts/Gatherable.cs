@@ -11,6 +11,12 @@ namespace SiidaGameJam.BerryPicking
         [Min(1)]
         [SerializeField] private int amount = 1;
         [SerializeField] private UnityEvent<int> gathered;
+        private BerryBush berryBush;
+
+        public void SetBerryBush(BerryBush owner)
+        {
+            berryBush = owner;
+        }
 
         public override bool BeginInteraction(Vector2 pointerWorldPosition)
         {
@@ -21,6 +27,7 @@ namespace SiidaGameJam.BerryPicking
 
             gathered.Invoke(amount);
             gameObject.SetActive(false);
+            berryBush.BerryWasGathered();
             return false;
         }
     }

@@ -32,6 +32,10 @@ namespace SiidaGameJam.BerryPicking
         [Min(0)]
         [SerializeField] private int maximumPlantsPerRow = 10;
 
+        [Header("Rustling Bushes")]
+        [Range(0f, 1f)]
+        [SerializeField] private float rustlingBushChance = 0.1f;
+
         [Header("Birches")]
         [SerializeField] private GameObject[] birchPrefabs;
         [Range(0f, 1f)]
@@ -57,6 +61,7 @@ namespace SiidaGameJam.BerryPicking
 
         private readonly List<List<GameObject>> spawnedRows =
             new List<List<GameObject>>();
+        private RustlingBush activeRustlingBush;
 
         private void Start()
         {
@@ -72,6 +77,13 @@ namespace SiidaGameJam.BerryPicking
 
             foreach (GameObject plant in bottomRow)
             {
+                RustlingBush rustlingBush = plant.GetComponent<RustlingBush>();
+
+                if (rustlingBush == activeRustlingBush)
+                {
+                    activeRustlingBush = null;
+                }
+
                 Destroy(plant);
             }
 
@@ -160,7 +172,36 @@ namespace SiidaGameJam.BerryPicking
             GameObject plant = Instantiate(prefab, position, Quaternion.identity, transform);
             plant.GetComponent<SortingGroup>().sortingOrder =
                 GetSortingOrder(rowIndex, 0);
+            TryActivateRustlingBush(plant, position.x);
             return plant;
+        }
+
+        private void TryActivateRustlingBush(GameObject plant, float x)
+        {
+            if (activeRustlingBush != null)
+            {
+                return;
+            }
+
+            if (x < birchForbiddenMinimumX || x > birchForbiddenMaximumX)
+            {
+                return;
+            }
+
+            BerryBush berryBush = plant.GetComponentInChildren<BerryBush>();
+
+            if (berryBush.ActiveBerryCount == 0)
+            {
+                return;
+            }
+
+            if (Random.value > rustlingBushChance)
+            {
+                return;
+            }
+
+            activeRustlingBush = plant.GetComponent<RustlingBush>();
+            activeRustlingBush.ActivateRustling();
         }
 
         private void SpawnGrass(

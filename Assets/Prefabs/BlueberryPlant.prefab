@@ -146,6 +146,7 @@ MonoBehaviour:
   - {fileID: 8914159955319610408}
   minimumBerryCount: 0
   maximumBerryCount: 13
+  rustlingBush: {fileID: 5063896751068896048}
 --- !u!60 &3007019983337244734
 PolygonCollider2D:
   m_ObjectHideFlags: 0
@@ -413,6 +414,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8406837381660890803}
   - component: {fileID: 1582732508872635532}
+  - component: {fileID: 5063896751068896048}
   m_Layer: 0
   m_Name: BlueberryPlant
   m_TagString: Untagged
@@ -429,12 +431,13 @@ Transform:
   m_GameObject: {fileID: 7749168320649510424}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.93558, y: -2.045, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2017579365751653081}
   - {fileID: 2559532434176406982}
+  - {fileID: 7607793844791377020}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!210 &1582732508872635532
@@ -450,6 +453,26 @@ SortingGroup:
   m_SortingOrder: 0
   m_SortAtRoot: 0
   m_Sort3DAs2D: 0
+--- !u!114 &5063896751068896048
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7749168320649510424}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f63cb8e44cc50bb4dbee8104a8a0c1b4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SiidaGameJam.BerryPicking.RustlingBush
+  rustlingTransform: {fileID: 8406837381660890803}
+  lemmingObject: {fileID: 6994621144747029278}
+  minimumRestDuration: 1.5
+  maximumRestDuration: 4
+  rustleDuration: 0.4
+  oscillationsPerRustle: 3
+  horizontalMovement: 0.025
+  rotationAmount: 0.55
 --- !u!1 &8807770880754759975
 GameObject:
   m_ObjectHideFlags: 0
@@ -676,6 +699,77 @@ Transform:
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4145149946610867159, guid: f1bfbf87c77f4334d8b8a5e915358b59, type: 3}
   m_PrefabInstance: {fileID: 1020099723615578923}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &1048760129221616410
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 8406837381660890803}
+    m_Modifications:
+    - target: {fileID: 7429147139464863590, guid: b92547bacef1dae409544dac2b8972e3, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.73587996
+      objectReference: {fileID: 0}
+    - target: {fileID: 7429147139464863590, guid: b92547bacef1dae409544dac2b8972e3, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.17988002
+      objectReference: {fileID: 0}
+    - target: {fileID: 7429147139464863590, guid: b92547bacef1dae409544dac2b8972e3, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7429147139464863590, guid: b92547bacef1dae409544dac2b8972e3, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7429147139464863590, guid: b92547bacef1dae409544dac2b8972e3, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7429147139464863590, guid: b92547bacef1dae409544dac2b8972e3, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7429147139464863590, guid: b92547bacef1dae409544dac2b8972e3, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7429147139464863590, guid: b92547bacef1dae409544dac2b8972e3, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7429147139464863590, guid: b92547bacef1dae409544dac2b8972e3, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7429147139464863590, guid: b92547bacef1dae409544dac2b8972e3, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8042324031930486788, guid: b92547bacef1dae409544dac2b8972e3, type: 3}
+      propertyPath: m_Name
+      value: NorwayLemming
+      objectReference: {fileID: 0}
+    - target: {fileID: 8042324031930486788, guid: b92547bacef1dae409544dac2b8972e3, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: b92547bacef1dae409544dac2b8972e3, type: 3}
+--- !u!1 &6994621144747029278 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8042324031930486788, guid: b92547bacef1dae409544dac2b8972e3, type: 3}
+  m_PrefabInstance: {fileID: 1048760129221616410}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &7607793844791377020 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 7429147139464863590, guid: b92547bacef1dae409544dac2b8972e3, type: 3}
+  m_PrefabInstance: {fileID: 1048760129221616410}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1094695826518221582
 PrefabInstance:
