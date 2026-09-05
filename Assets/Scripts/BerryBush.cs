@@ -4,6 +4,8 @@ namespace SiidaGameJam.BerryPicking
 {
     public sealed class BerryBush : MonoBehaviour
     {
+        public static event System.Action LastBerryGatherAttempted;
+
         [SerializeField] private GameObject[] berries;
         [Min(0)]
         [SerializeField] private int minimumBerryCount;
@@ -40,6 +42,23 @@ namespace SiidaGameJam.BerryPicking
         {
             ActiveBerryCount -= 1;
             rustlingBush.RevealLemming();
+        }
+
+        public bool BerryCanBeGathered()
+        {
+            if (ActiveBerryCount > 1)
+            {
+                return true;
+            }
+
+            rustlingBush.RevealLemming();
+
+            if (LastBerryGatherAttempted != null)
+            {
+                LastBerryGatherAttempted.Invoke();
+            }
+
+            return false;
         }
     }
 }

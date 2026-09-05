@@ -25,7 +25,10 @@ namespace SiidaGameJam.BerryPicking
         {
             if (resource == GatherableResource.Berry)
             {
-                GatherBerry();
+                if (!GatherBerry())
+                {
+                    return false;
+                }
             }
             else
             {
@@ -37,16 +40,23 @@ namespace SiidaGameJam.BerryPicking
             return false;
         }
 
-        private void GatherBerry()
+        private bool GatherBerry()
         {
+            SortingGroup bushSortingGroup = GetComponentInParent<SortingGroup>();
+            BerryBush berryBush = bushSortingGroup.GetComponentInChildren<BerryBush>();
+
+            if (!berryBush.BerryCanBeGathered())
+            {
+                return false;
+            }
+
             if (BerryGathered != null)
             {
                 BerryGathered.Invoke(amount);
             }
 
-            SortingGroup bushSortingGroup = GetComponentInParent<SortingGroup>();
-            BerryBush berryBush = bushSortingGroup.GetComponentInChildren<BerryBush>();
             berryBush.BerryWasGathered();
+            return true;
         }
 
         private void GatherAzaleaFlower()
