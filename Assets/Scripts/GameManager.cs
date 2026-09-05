@@ -279,6 +279,12 @@ public sealed class GameManager : MonoBehaviour
         SceneManager.LoadScene(berryPickingSceneName);
     }
 
+    public void StartGame()
+    {
+        PrepareForSceneChange();
+        SceneManager.LoadScene(mainSceneName);
+    }
+
     public void ReturnToMainScreen()
     {
         PrepareForSceneChange();
