@@ -29,7 +29,7 @@ public class Dialogue : MonoBehaviour
 
     void IterateText()
     {
-        DialogueSaveManager.Instance.m_DialogueIndex++;
+        DialogueSaveManager.Instance.m_DialogueIndex = Mathf.Clamp(DialogueSaveManager.Instance.m_DialogueIndex + 1, 0, requests.Length - 1); ;
     }
 
     public void DoSomething()
