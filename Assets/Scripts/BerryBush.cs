@@ -19,7 +19,6 @@ namespace SiidaGameJam.BerryPicking
 
             foreach (GameObject berry in berries)
             {
-                berry.GetComponent<Gatherable>().SetBerryBush(this);
                 berry.SetActive(false);
             }
 

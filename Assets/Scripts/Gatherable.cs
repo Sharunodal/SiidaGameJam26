@@ -1,6 +1,7 @@
 using System;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.Rendering;
 
 namespace SiidaGameJam.BerryPicking
 {
@@ -11,15 +12,12 @@ namespace SiidaGameJam.BerryPicking
         [Min(1)]
         [SerializeField] private int amount = 1;
         [SerializeField] private UnityEvent<int> gathered;
-        private BerryBush berryBush;
-
-        public void SetBerryBush(BerryBush owner)
-        {
-            berryBush = owner;
-        }
 
         public override bool BeginInteraction(Vector2 pointerWorldPosition)
         {
+            SortingGroup bushSortingGroup = GetComponentInParent<SortingGroup>();
+            BerryBush berryBush = bushSortingGroup.GetComponentInChildren<BerryBush>();
+
             if (AnyGathered != null)
             {
                 AnyGathered.Invoke(amount);
